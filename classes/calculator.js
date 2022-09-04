@@ -5,17 +5,17 @@ class Calculator {
 		this._items = { }
 
 		items.forEach(e => {
-			this._items[e[0]] = { pop: undefined, value: [], baseValue: e[1], combo: e[2], peakCycle: 0, typeStrong: false, time: e[3] }
+			this._items[e[0]] = { pop: 0, value: [], baseValue: e[1], combo: e[2], peakCycle: 0, peakType: 0, time: e[3] }
 		})
 	}
 
 	updatePattern(pattern) {
 		pattern.forEach(e => {
 			this._items[e.item].peakCycle = e.cycle
-			this._items[e.item].typeStrong = e.typeStrong
+			this._items[e.item].peakType = e.peakType
 		})
 
-		console.table(this._items)
+		this.updateValues()
 	}
 
 	updatePopularity(pop) {
@@ -23,11 +23,35 @@ class Calculator {
 			this._items[e.item].pop = e.pop
 		})
 
-		console.table(this._items)
+		this.updateValues()
 	}
 
 	updateValues() {
-		this._items.
+		for (const key in this._items) {
+			const item = this._items[key]
+
+			for (let day = 1; day < 8; day++) {
+				let peakMultiplier = 0
+
+				if (day == item.peakCycle) {
+					peakMultiplier = item.peakType
+				}
+				else if (day == item.peakCycle - 1) {
+					peakMultiplier = 1
+				}
+				else if (day != item.peakCycle && day != item.peakCycle - 1 && item.pop == 2) {
+					// We want to discourage using high value items earlier just because of their high value
+					peakMultiplier = -1
+				}
+				else {
+					peakMultiplier = 0
+				}
+
+				item.value[day - 1] = Math.floor(item.baseValue * (1 + 0.3 * peakMultiplier) * (1 + 0.2 * item.pop))
+			}
+		}
+
+		console.table(this._items)
 	}
 }
 

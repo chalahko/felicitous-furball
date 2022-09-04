@@ -7,17 +7,17 @@ module.exports = {
 			const arr = e.split('\t')
 
 			if (arr[1] == '' || arr[1].charAt(0) == 'C') {
-				return { item: arr[0], cycle: 0, typeStrong: false }
+				return { item: arr[0], cycle: 0, peakType: 0 }
 			}
 
 			const cycle = parseInt(arr[1].charAt(0))
 			const type = arr[1].substring(1).trim()
 
 			if (type == 'Weak') {
-				return { item: arr[0], cycle: cycle, typeStrong: false }
+				return { item: arr[0], cycle: cycle, peakType: 1 }
 			}
 			else {
-				return { item: arr[0], cycle: cycle, typeStrong: true }
+				return { item: arr[0], cycle: cycle, peakType: 2 }
 			}
 		})
 
