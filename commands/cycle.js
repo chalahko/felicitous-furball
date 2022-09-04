@@ -11,6 +11,14 @@ module.exports = {
 				.setRequired(true)),
 
 	async execute(interaction) {
-		interaction.reply('test')
+		const day = interaction.options.getInteger('day')
+
+		if (day < 1 || day > 7) {
+			interaction.reply('Invalid day!')
+		}
+		else {
+			await interaction.reply(`Getting the best sequences for Cycle ${day}`)
+			interaction.client.calculator.genSequences(day)
+		}
 	},
 }

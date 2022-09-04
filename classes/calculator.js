@@ -39,19 +39,58 @@ class Calculator {
 				else if (day == item.peakCycle - 1) {
 					peakMultiplier = 1
 				}
-				else if (day != item.peakCycle && day != item.peakCycle - 1 && item.pop == 2) {
-					// We want to discourage using high value items earlier just because of their high value
-					peakMultiplier = -1
-				}
 				else {
 					peakMultiplier = 0
 				}
 
-				item.value[day - 1] = Math.floor(item.baseValue * (1 + 0.3 * peakMultiplier) * (1 + 0.2 * item.pop))
+				item.value[day - 1] = Math.floor(Math.floor(item.baseValue) * (1 + (0.3 * peakMultiplier)) * (1 + (0.2 * item.pop)))
 			}
 		}
+	}
 
+	genSequences(day) {
+		const sequences = []
+
+		for (const key in this._items) {
+			const item = this._items[key]
+
+			this.recur(item, [ key ], 24 - item.time, sequences)
+		}
+
+		const outputSequences = sequences.map(el => {
+			let value = 0
+
+			for (let i = 0; i < el.length; i++) {
+
+				if (i == 0) {
+					value = value + this._items[el[i]].value[day - 1]
+				}
+				else {
+					value = value + this._items[el[i]].value[day - 1] * 2
+				}
+			}
+
+			return { value: value, sequence: el }
+		}).sort((a, b) => b.value - a.value).slice(0, 100)
+
+		console.table(outputSequences)
 		console.table(this._items)
+	}
+
+	recur(item, sequence, time, output) {
+		if (time == 4) {
+			output.push(sequence)
+			return
+		}
+		else if (time < 4) {
+			return
+		}
+
+		for (let i = 0; i < item.combo.length; i++) {
+			const nextItem = this._items[item.combo[i]]
+
+			this.recur(nextItem, [...sequence, item.combo[i]], time - item.time, output)
+		}
 	}
 }
 
