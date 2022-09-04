@@ -1,6 +1,7 @@
 const { SlashCommandBuilder, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js')
 
 module.exports = {
+	global: false,
 	data: new SlashCommandBuilder()
 		.setName('workshop')
 		.setDescription('Update workshop values')
@@ -30,28 +31,24 @@ module.exports = {
 			.setCustomId('grooveValueInput')
 			.setLabel('Groove Mover Values')
 			.setStyle(TextInputStyle.Paragraph)
-			.setMaxLength(1024)
 			.setRequired(false)
 
 		const grooveSequenceInput = new TextInputBuilder()
 			.setCustomId('grooveSequenceInput')
 			.setLabel('Groove Mover Sequences')
 			.setStyle(TextInputStyle.Paragraph)
-			.setMaxLength(1024)
 			.setRequired(false)
 
 		const cowrieValueInput = new TextInputBuilder()
 			.setCustomId('cowrieValueInput')
 			.setLabel('Cowrie Compiler Values')
 			.setStyle(TextInputStyle.Paragraph)
-			.setMaxLength(1024)
 			.setRequired(true)
 
 		const cowrieSequenceInput = new TextInputBuilder()
 			.setCustomId('cowrieSequenceInput')
 			.setLabel('Cowrie Compiler Sequences')
 			.setStyle(TextInputStyle.Paragraph)
-			.setMaxLength(1024)
 			.setRequired(true)
 
 		const firstActionRow = new ActionRowBuilder().addComponents(cycleInput)
