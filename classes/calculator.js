@@ -54,7 +54,7 @@ class Calculator {
 		for (const key in this._items) {
 			const item = this._items[key]
 
-			this.recur(item, [ key ], 24 - item.time, sequences)
+			this.recur(item, [ key ], 24, sequences)
 		}
 
 		const outputSequences = sequences.map(el => {
@@ -71,18 +71,20 @@ class Calculator {
 			}
 
 			return { value: value, sequence: el }
-		}).sort((a, b) => b.value - a.value).slice(0, 100)
+		}).sort((a, b) => b.value - a.value)
 
-		console.table(outputSequences)
+		console.table(outputSequences.filter(this.filterSixSequences).sort((a, b) => b.value - a.value).slice(0, 10))
+
+		console.table(outputSequences.slice(0, 25))
 		console.table(this._items)
 	}
 
 	recur(item, sequence, time, output) {
-		if (time == 4) {
+		if (time - item.time == 0) {
 			output.push(sequence)
 			return
 		}
-		else if (time < 4) {
+		else if (time - item.time < 0) {
 			return
 		}
 
@@ -91,6 +93,10 @@ class Calculator {
 
 			this.recur(nextItem, [...sequence, item.combo[i]], time - item.time, output)
 		}
+	}
+
+	filterSixSequences(sequence) {
+		return (sequence.sequence.length == 6)
 	}
 }
 
