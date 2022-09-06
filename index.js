@@ -14,6 +14,8 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('
 
 client.calculator = new Calculator()
 
+if (!fs.existsSync('./data')) fs.mkdirSync('./data')
+
 // Initialize saved values
 try {
 	const pattern = JSON.parse(fs.readFileSync('./data/pattern.json'))
