@@ -18,7 +18,8 @@ module.exports = {
 					{ name: 'Sunday', value: 6 },
 					{ name: 'Monday', value: 7 },
 				),
-		),
+		)
+		.setDMPermission(true),
 
 	async execute(interaction) {
 		const day = interaction.options.getInteger('day')
@@ -82,6 +83,14 @@ module.exports = {
 				.setDescription('*Due to how Island Sanctuary supply changes, it is impossible to predict Day 2 **Nonexistent** crafts 100% accurately on Day 1. Adjust your plans accordingly.*')
 
 			await interaction.editReply({ content: '', embeds: [ dayTwoWarning, dayEmbed ], ephemeral: true })
+		}
+		else if (interaction.client.calculator.getLastPeak() < day) {
+			const unpredictedWarning = new EmbedBuilder()
+				.setAuthor({ name: 'Warning', iconURL: 'https://i.imgur.com/p3UUiKH.png' })
+				.setColor('993d3d')
+				.setDescription('*You are attempting to get sequences for a Day that cannot be fully predicted. Results will not be accurate!*')
+
+			await interaction.editReply({ content: '', embeds: [ unpredictedWarning, dayEmbed ], ephemeral: true })
 		}
 		else {
 			await interaction.editReply({ content: '', embeds: [ dayEmbed ], ephemeral: true })

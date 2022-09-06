@@ -50,6 +50,18 @@ class Calculator {
 		}
 	}
 
+	// Determine the final day predicted
+	getLastPeak() {
+		let lastPeak = 0
+		for (const key in this._items) {
+			const peak = this._items[key].peakCycle
+
+			if (peak > lastPeak) lastPeak = peak
+		}
+
+		return lastPeak
+	}
+
 	// Generate sequences for all days and write them
 	calculateSequences() {
 		const daySequences = []
