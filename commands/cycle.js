@@ -30,7 +30,7 @@ module.exports = {
 		let gValues = ''
 		let gSequences = ''
 		daySequences.groovers.forEach(seq => {
-			gValues = gValues + `${cowry} **${seq.value}**  \u200B \u200B\n`
+			gValues = gValues + `${cowry}  **${seq.value}**  \u200B \u200B\n`
 			gSequences = gSequences + seq.sequence.map(el => {
 				return `${shorten(el)}`
 			}).join(' ➛ ') + '\n'
@@ -58,7 +58,7 @@ module.exports = {
 
 		const tops = new EmbedBuilder()
 			.setAuthor({ name: `Day ${day} - Best Cowrie Sequences`, iconURL: 'https://i.imgur.com/cft3lF4.png' })
-			.setDescription('*The top sequences to generate the most cowries.\nNote: these do not take into account any 4-hour crafts previously made.*')
+			.setDescription('*The top sequences to generate the most cowries. Note: these do account for player supply changes.*')
 			.setColor('5981A7')
 			.addFields(
 				{ name: 'Cowries', value: cValues, inline: true },
