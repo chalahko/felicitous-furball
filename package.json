@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --no-warnings index.js",
-    "deploy": "node --no-warnings deploy-commands.js"
+    "deploy": "node --no-warnings deploy-commands.js",
+    "deploy-global": "node --no-warnings deploy-global-commands.js"
   },
   "keywords": [],
   "author": "",
