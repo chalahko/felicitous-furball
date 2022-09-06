@@ -1,3 +1,5 @@
+const fs = require('node:fs')
+
 module.exports = {
 	customId: 'workshop-popularity-update',
 	async execute(interaction) {
@@ -8,8 +10,11 @@ module.exports = {
 			return { item: arr[0], pop: parseInt(arr[1]) }
 		})
 
+		await interaction.reply('Successfully updated popularity!')
+
 		interaction.client.calculator.updatePopularity(popArray)
 
-		interaction.reply('Successfully updated popularity!')
+		fs.writeFileSync('popularity.json', JSON.stringify(popArray))
+		interaction.client.calculator.calculateSequences()
 	},
 }

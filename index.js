@@ -3,6 +3,7 @@ const path = require('node:path')
 const { Client, Collection, GatewayIntentBits } = require('discord.js')
 const { token } = require('./config.json')
 const { Calculator } = require('./classes/calculator.js')
+const chalk = require('chalk')
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] })
 
@@ -12,6 +13,36 @@ const commandsPath = path.join(__dirname, 'commands')
 const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
 
 client.calculator = new Calculator()
+
+
+// Initialize saved values
+try {
+	const pattern = JSON.parse(fs.readFileSync('./pattern.json'))
+	client.calculator.updatePattern(pattern)
+}
+catch (e) {
+	console.error(chalk.red('FILE READ ERROR'), 'Unable to read pattern.json file!')
+}
+
+try {
+	const popularity = JSON.parse(fs.readFileSync('./popularity.json'))
+	client.calculator.updatePopularity(popularity)
+}
+catch (e) {
+	console.error(chalk.red('FILE READ ERROR'), 'Unable to read popularity.json file!')
+}
+
+try {
+	const daySequences = JSON.parse(fs.readFileSync('./day-sequences.json'))
+	client.calculator.setDaySequences(daySequences)
+}
+catch (e) {
+	console.error(chalk.red('FILE READ ERROR'), 'Unable to read day-sequences.json file!')
+
+	console.log(chalk.greenBright('Generating new one now.'))
+	client.calculator.calculateSequences()
+}
+
 
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file)

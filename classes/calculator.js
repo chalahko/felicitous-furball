@@ -1,8 +1,9 @@
-const { Collection } = require('discord.js')
+const fs = require('node:fs')
 
 class Calculator {
 	constructor() {
 		this._items = { }
+		this._daySequences = [ ]
 
 		items.forEach(e => {
 			this._items[e[0]] = { pop: 0, value: [], baseValue: e[1], combo: e[2], peakCycle: 0, peakType: 0, time: e[3] }
@@ -43,16 +44,44 @@ class Calculator {
 					peakMultiplier = 0
 				}
 
-				item.value[day - 1] = Math.floor(Math.floor(item.baseValue) * (1 + (0.3 * peakMultiplier)) * (1 + (0.2 * item.pop)))
+				item.value[day - 1] = Math.floor(item.baseValue * (1 + (0.3 * peakMultiplier)) * (1 + (0.2 * item.pop)))
 			}
 		}
 	}
 
+	// Generate sequences for all days and write them
+	calculateSequences() {
+		const daySequences = []
+
+		for (let i = 0; i < 7; i++) {
+			daySequences.push(this.genSequences(i))
+		}
+
+		this.setDaySequences(daySequences)
+		fs.writeFileSync('day-sequences.json', JSON.stringify(daySequences))
+
+		console.table(this._items)
+	}
+
+	setDaySequences(sequences) {
+		this._daySequences = sequences
+	}
+
+	getDaySequences() {
+		return this._daySequences
+	}
+
+	getSingleDaySequences(day) {
+		return this.getDaySequences().find(item => item.day === day)
+	}
+
+	// Generate sequences and values for given day
 	genSequences(day) {
 		const sequences = []
 
 		for (const key in this._items) {
 			const item = this._items[key]
+			if (item.time > 4) continue
 
 			this.recur(item, [ key ], 24, sequences)
 		}
@@ -63,22 +92,32 @@ class Calculator {
 			for (let i = 0; i < el.length; i++) {
 
 				if (i == 0) {
-					value = value + this._items[el[i]].value[day - 1]
+					value = value + this._items[el[i]].value[day]
 				}
 				else {
-					value = value + this._items[el[i]].value[day - 1] * 2
+					value = value + this._items[el[i]].value[day] * 2
 				}
 			}
 
 			return { value: value, sequence: el }
 		}).sort((a, b) => b.value - a.value)
 
+		/* Debug Prints
 		console.table(outputSequences.filter(this.filterSixSequences).sort((a, b) => b.value - a.value).slice(0, 10))
 
 		console.table(outputSequences.slice(0, 25))
-		console.table(this._items)
+		console.table(this._items)*/
+
+		const dayValues = {
+			day: day + 1,
+			groovers: this.getGrooveSequences(outputSequences),
+			top: outputSequences.slice(0, 16),
+		}
+
+		return dayValues
 	}
 
+	// Recursion to generate sequences
 	recur(item, sequence, time, output) {
 		if (time - item.time == 0) {
 			output.push(sequence)
@@ -95,8 +134,45 @@ class Calculator {
 		}
 	}
 
-	filterSixSequences(sequence) {
-		return (sequence.sequence.length == 6)
+	// Get 6 item sequences optimal for increasing groove
+	getGrooveSequences(sequences) {
+		const sixSequences = sequences.filter(seq => seq.sequence.length == 6)
+			.sort((a, b) => b.value - a.value)
+			.map(el => {
+				const count = {}
+
+				el.sequence.forEach((item, i) => {
+					if (i == 0) {
+						count[item] = (count[item] || 0) + 1
+					}
+					else {
+						count[item] = (count[item] || 0) + 2
+					}
+				})
+
+				const mainItem = Object.values(count).indexOf(6)
+				if (mainItem > -1) {
+					return { value: el.value, sequence: el.sequence, mainItem: Object.keys(count)[mainItem] }
+				}
+				else {
+					return { value: el.value, sequence: el.sequence, mainItem: undefined }
+				}
+			})
+
+		// Here we try to remove sequences that are similar in items and value
+		const uniqueSequences = []
+		let i = 0
+		while (uniqueSequences.length < 8) {
+			if (!uniqueSequences.find(el => el.mainItem == sixSequences[i].mainItem) && !uniqueSequences.find(el => el.value == sixSequences[i].value)) {
+				uniqueSequences.push(sixSequences[i])
+			}
+			else {
+				i++
+				continue
+			}
+		}
+
+		return uniqueSequences
 	}
 }
 

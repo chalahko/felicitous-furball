@@ -1,3 +1,5 @@
+const fs = require('node:fs')
+
 module.exports = {
 	customId: 'workshop-pattern-update',
 	async execute(interaction) {
@@ -21,8 +23,11 @@ module.exports = {
 			}
 		})
 
+		await interaction.reply('Successfully updated pattern!')
+
 		interaction.client.calculator.updatePattern(patternArray)
 
-		interaction.reply('Successfully updated pattern!')
+		fs.writeFileSync('pattern.json', JSON.stringify(patternArray))
+		interaction.client.calculator.calculateSequences()
 	},
 }
