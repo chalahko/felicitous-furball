@@ -14,7 +14,7 @@ module.exports = {
 
 		interaction.client.calculator.updatePopularity(popArray)
 
-		fs.writeFileSync('popularity.json', JSON.stringify(popArray))
+		fs.writeFileSync('./data/popularity.json', JSON.stringify(popArray))
 		interaction.client.calculator.calculateSequences()
 	},
 }

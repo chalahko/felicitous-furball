@@ -17,7 +17,7 @@ client.calculator = new Calculator()
 
 // Initialize saved values
 try {
-	const pattern = JSON.parse(fs.readFileSync('./pattern.json'))
+	const pattern = JSON.parse(fs.readFileSync('./data/pattern.json'))
 	client.calculator.updatePattern(pattern)
 }
 catch (e) {
@@ -25,7 +25,7 @@ catch (e) {
 }
 
 try {
-	const popularity = JSON.parse(fs.readFileSync('./popularity.json'))
+	const popularity = JSON.parse(fs.readFileSync('./data/popularity.json'))
 	client.calculator.updatePopularity(popularity)
 }
 catch (e) {
@@ -33,7 +33,7 @@ catch (e) {
 }
 
 try {
-	const daySequences = JSON.parse(fs.readFileSync('./day-sequences.json'))
+	const daySequences = JSON.parse(fs.readFileSync('./data/day-sequences.json'))
 	client.calculator.setDaySequences(daySequences)
 }
 catch (e) {

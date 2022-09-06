@@ -27,7 +27,7 @@ module.exports = {
 
 		interaction.client.calculator.updatePattern(patternArray)
 
-		fs.writeFileSync('pattern.json', JSON.stringify(patternArray))
+		fs.writeFileSync('./data/pattern.json', JSON.stringify(patternArray))
 		interaction.client.calculator.calculateSequences()
 	},
 }

@@ -58,7 +58,7 @@ class Calculator {
 		}
 
 		this.setDaySequences(daySequences)
-		fs.writeFileSync('day-sequences.json', JSON.stringify(daySequences))
+		fs.writeFileSync('./data/day-sequences.json', JSON.stringify(daySequences))
 
 		console.table(this._items)
 	}
