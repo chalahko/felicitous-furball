@@ -21,7 +21,6 @@ module.exports = {
 		),
 
 	async execute(interaction) {
-		const cowry = '<:cowry:1016571227554463784>'
 		const day = interaction.options.getInteger('day')
 		const daySequences = interaction.client.calculator.getSingleDaySequences(day)
 
@@ -30,7 +29,7 @@ module.exports = {
 		let gValues = ''
 		let gSequences = ''
 		daySequences.groovers.forEach(seq => {
-			gValues = gValues + `${cowry} **${seq.value}**  \u200B\n`
+			gValues = gValues + `**${seq.value}**  \u200B\n`
 			gSequences = gSequences + seq.sequence.map(el => {
 				return `${shorten(el)}`
 			}).join(' ➛ ') + '\n'
@@ -40,7 +39,7 @@ module.exports = {
 		let cValues = ''
 		let cSequences = ''
 		daySequences.top.forEach(seq => {
-			cValues = cValues + `${cowry} **${seq.value}**  \u200B \u200B\n`
+			cValues = cValues + `**${seq.value}**  \u200B \u200B\n`
 			cSequences = cSequences + seq.sequence.map(el => {
 				return `${shorten(el)}`
 			}).join(' ➛ ') + '\n'

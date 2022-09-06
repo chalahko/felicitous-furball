@@ -5,12 +5,7 @@ const { token } = require('./config.json')
 const { Calculator } = require('./classes/calculator.js')
 const chalk = require('chalk')
 
-const client = new Client({ intents: [GatewayIntentBits.Guilds] })
-
-// Dynamically load all commands
-client.commands = new Collection()
-const commandsPath = path.join(__dirname, 'commands')
-const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
+const client = new Client({ intents: [GatewayIntentBits.DirectMessages, GatewayIntentBits.Guilds] })
 
 client.calculator = new Calculator()
 
@@ -69,6 +64,10 @@ client.saveStats = () => {
 	fs.writeFileSync('./data/stats.json', JSON.stringify(client.stats))
 }
 
+// Dynamically load all commands
+client.commands = new Collection()
+const commandsPath = path.join(__dirname, 'commands')
+const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'))
 
 for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file)

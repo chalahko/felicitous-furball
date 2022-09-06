@@ -27,6 +27,7 @@ class Calculator {
 		this.updateValues()
 	}
 
+	// Update item values for each day based on supply/popularity
 	updateValues() {
 		for (const key in this._items) {
 			const item = this._items[key]

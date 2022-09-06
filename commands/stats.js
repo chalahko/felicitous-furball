@@ -12,13 +12,15 @@ module.exports = {
 		const statsEmbed = new EmbedBuilder()
 			.setAuthor({ name: 'Felicitous Furball Stats', iconURL: 'https://i.imgur.com/KxZwtlU.png' })
 			.setColor('ee3300')
-			.addFields(
-				{ name: 'Number of Servers', value: `**${guilds}**` },
-				{ name: 'Total Bot Interactions', value: `**${interaction.client.stats.interactions}**` },
-				{ name: 'Cycles Called', value: `**${interaction.client.stats.cyclesCalled}**` },
-				{ name: 'FAQs Shown', value: `**${interaction.client.stats.faqsCalled}**` },
-			)
+			.setDescription(`> Number of Servers: **${commas(guilds)}**
+			> Total Bot Interactions: **${commas(interaction.client.stats.interactions)}**
+			> Cycles Called: **${commas(interaction.client.stats.cyclesCalled)}**
+			> FAQs Shown: **${commas(interaction.client.stats.faqsCalled)}**`)
 
 		interaction.reply({ embeds: [ statsEmbed ] })
 	},
+}
+
+function commas(num) {
+	return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
