@@ -21,16 +21,16 @@ module.exports = {
 		),
 
 	async execute(interaction) {
-		const cowry = '<:cowry:1015694371749908572>'
+		const cowry = '<:cowry:1016571227554463784>'
 		const day = interaction.options.getInteger('day')
 		const daySequences = interaction.client.calculator.getSingleDaySequences(day)
 
-		await interaction.reply(`Getting the best sequences for Cycle ${day}`)
+		await interaction.deferReply({ ephemeral: true })
 
 		let gValues = ''
 		let gSequences = ''
 		daySequences.groovers.forEach(seq => {
-			gValues = gValues + `${cowry}  **${seq.value}**  \u200B \u200B\n`
+			gValues = gValues + `${cowry} **${seq.value}**  \u200B\n`
 			gSequences = gSequences + seq.sequence.map(el => {
 				return `${shorten(el)}`
 			}).join(' ➛ ') + '\n'
@@ -46,49 +46,49 @@ module.exports = {
 			}).join(' ➛ ') + '\n'
 		})
 
-		const groovers = new EmbedBuilder()
-			.setAuthor({ name: `Day ${day} - Best Groove Sequences`, iconURL: 'https://i.imgur.com/cft3lF4.png' })
-			.setDescription('*Short crafts to increase groove quickly. Very similar sequences are discarded for more item variations.*')
+		const dayEmbed = new EmbedBuilder()
+			.setAuthor({ name: `Workshop Day ${day} Sequences`, iconURL: 'https://i.imgur.com/cft3lF4.png' })
 			.setColor('5981A7')
-			.addFields(
-				{ name: 'Cowries', value: gValues, inline: true },
+
+		if (day < 5) {
+			dayEmbed.addFields(
+				{ name: 'Groove', value: '*Short crafts to increase groove quickly. Very similar sequences are discarded for more item variations.*', inline: false },
+				{ name: 'Value', value: gValues, inline: true },
 				{ name: 'Sequence', value: gSequences, inline: true },
-				{ name: '\u200B', value: '\u200B', inline: true },
-			)
-
-		const tops = new EmbedBuilder()
-			.setAuthor({ name: `Day ${day} - Best Cowrie Sequences`, iconURL: 'https://i.imgur.com/cft3lF4.png' })
-			.setDescription('*The top sequences to generate the most cowries. Note: these do account for player supply changes.*')
-			.setColor('5981A7')
-			.addFields(
-				{ name: 'Cowries', value: cValues, inline: true },
+				{ name: 'Cowries', value: '*The top sequences to generate the most cowries. Note: these do account for player supply changes.*', inline: false },
+				{ name: 'Value', value: cValues, inline: true },
 				{ name: 'Sequence', value: cSequences, inline: true },
-				{ name: '\u200B', value: '\u200B', inline: true },
 			)
-
-
-		if (day > 4) {
-			await interaction.editReply({ content: '', embeds: [ tops ] })
 		}
-		else if (day == 1) {
-			const dayOneWarning = new EmbedBuilder()
-				.setTitle('Warning')
-				.setColor('ffcc00')
-				.setDescription('*Since Day 1 has no **Nonexistent** items, it is recommended to rest on Day 1. This allows for more valuable crafting days in the future.*')
+		else {
+			dayEmbed.addFields(
+				{ name: 'Cowries', value: '*The top sequences to generate the most cowries. Note: these do account for player supply changes.*', inline: false },
+				{ name: 'Value', value: cValues, inline: true },
+				{ name: 'Sequence', value: cSequences, inline: true },
+			)
+		}
 
-			await interaction.editReply({ content: '', embeds: [ dayOneWarning, groovers, tops ] })
+		if (day == 1) {
+			const dayOneWarning = new EmbedBuilder()
+				.setAuthor({ name: 'Notice', iconURL: 'https://i.imgur.com/1DbYMXg.png' })
+				.setColor('e4d03d')
+				.setDescription('*Since Day 1 has no **Nonexistent** crafts, it is recommended to rest on Day 1. This allows for more valuable crafting days in the future.*')
+
+			await interaction.editReply({ content: '', embeds: [ dayOneWarning, dayEmbed ], ephemeral: true })
 		}
 		else if (day == 2) {
 			const dayTwoWarning = new EmbedBuilder()
-				.setTitle('Warning')
-				.setColor('cc3300')
-				.setDescription('*Due to how Island Sanctuary supply changes, it is impossible to predict week two peaks accurately on Day 1. Adjust your plans accordingly.*')
+				.setAuthor({ name: 'Notice', iconURL: 'https://i.imgur.com/1DbYMXg.png' })
+				.setColor('e4d03d')
+				.setDescription('*Due to how Island Sanctuary supply changes, it is impossible to predict Day 2 **Nonexistent** crafts 100% accurately on Day 1. Adjust your plans accordingly.*')
 
-			await interaction.editReply({ content: '', embeds: [ dayTwoWarning, groovers, tops ] })
+			await interaction.editReply({ content: '', embeds: [ dayTwoWarning, dayEmbed ], ephemeral: true })
 		}
 		else {
-			await interaction.editReply({ content: '', embeds: [ groovers, tops ] })
+			await interaction.editReply({ content: '', embeds: [ dayEmbed ], ephemeral: true })
 		}
+
+		interaction.client.stats.cyclesCalled = interaction.client.stats.cyclesCalled + 1
 	},
 }
 

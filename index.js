@@ -14,14 +14,13 @@ const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('
 
 client.calculator = new Calculator()
 
-
 // Initialize saved values
 try {
 	const pattern = JSON.parse(fs.readFileSync('./data/pattern.json'))
 	client.calculator.updatePattern(pattern)
 }
 catch (e) {
-	console.error(chalk.red('FILE READ ERROR'), 'Unable to read pattern.json file!')
+	console.error(chalk.redBright('FILE READ ERROR'), 'Unable to read pattern.json file!')
 }
 
 try {
@@ -29,7 +28,7 @@ try {
 	client.calculator.updatePopularity(popularity)
 }
 catch (e) {
-	console.error(chalk.red('FILE READ ERROR'), 'Unable to read popularity.json file!')
+	console.error(chalk.redBright('FILE READ ERROR'), 'Unable to read popularity.json file!')
 }
 
 try {
@@ -37,10 +36,35 @@ try {
 	client.calculator.setDaySequences(daySequences)
 }
 catch (e) {
-	console.error(chalk.red('FILE READ ERROR'), 'Unable to read day-sequences.json file!')
+	console.error(chalk.redBright('FILE READ ERROR'), 'Unable to read day-sequences.json file!')
 
-	console.log(chalk.greenBright('Generating new one now.'))
+	console.log(chalk.greenBright('Generating new day-sequences.json now!'))
 	client.calculator.calculateSequences()
+}
+
+// Initialize statistics
+try {
+	const stats = JSON.parse(fs.readFileSync('./data/stats.json'))
+	client.stats = stats
+}
+catch (e) {
+	console.error(chalk.redBright('FILE READ ERROR'), 'Unable to read stats.json file!')
+
+	console.log(chalk.greenBright('Generating stats.json now!'))
+
+	const newStats = {
+		cyclesCalled: 0,
+		faqsCalled: 0,
+		interactions: 0,
+	}
+
+	client.stats = newStats
+
+	fs.writeFileSync('./data/stats.json', JSON.stringify(newStats))
+}
+
+client.saveStats = () => {
+	fs.writeFileSync('./data/stats.json', JSON.stringify(client.stats))
 }
 
 

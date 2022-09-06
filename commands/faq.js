@@ -9,13 +9,16 @@ module.exports = {
 	async execute(interaction) {
 		const faqEmbed = new EmbedBuilder()
 			.setTitle('Frequently Asked Questions')
-			.setColor('ff9966')
+			.setColor('228822')
 			.addFields(
-				{ name: 'Why are the projected cowries so low?', value: '*The value predictions for sequences do not account for groove or workshop levels. Value adjustments are based solely on item popularity and supply levels.*' },
-				{ name: 'Why are the supply predictions off?', value: '*Due to how supply changes throughout the week, fully predicting every day from the beginning is not possible. Once Day 4 supply values are acquired, all further predictions will be accurate.*' },
-				{ name: 'When should I take my second rest day?', value: '*This depends highly on what is valued. Generally a good groove day can be around ~1000 and a profit day can be well over 1500. Look ahead and see if there are weak days you can skip.*' },
+				{ name: 'How do I use this?', value: '*Simply type in `/cycle` and choose the day you want to see workshop sequences for. Choose one that best fits, based on what you have already made and what materials you have, and then set your workshop agenda up the same way!*\n\n*As a general rule of thumb, 8 total crafts will raise an item\'s supply level, devaluing further crafts. For Nonexistent items you can do up to 8 double crafts. For Insufficient: 4 double crafts. After these thresholds the supply multiplier will be baseline.*' },
+				{ name: 'Why are the projected cowries so low?', value: '*The value predictions for sequences do not account for groove or workshop levels. Values are based solely on item popularity, base supply levels, and efficiency bonuses.*' },
+				{ name: 'Why are the supply predictions off?', value: '*Due to how supply changes throughout the week, fully predicting every day from the beginning is not possible. Prior to Day 4, generally only the next day can be predicted. Once Day 4 supply values are acquired, all further predictions will be accurate.*\n\n*Player influenced supply changes are also not depicted.*' },
+				{ name: 'When should I take my second rest day?', value: '*This depends highly on what is valued during the current week and day. Look ahead and see if there are weak days you can skip.*' },
 			)
 
-		await interaction.reply({ embeds: [ faqEmbed ] })
+		await interaction.reply({ embeds: [ faqEmbed ], ephemeral: true })
+
+		interaction.client.stats.faqsCalled = interaction.client.stats.faqsCalled + 1
 	},
 }
