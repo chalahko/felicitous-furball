@@ -88,7 +88,7 @@ module.exports = {
 			const unpredictedWarning = new EmbedBuilder()
 				.setAuthor({ name: 'Warning', iconURL: 'https://i.imgur.com/p3UUiKH.png' })
 				.setColor('993d3d')
-				.setDescription('*You are attempting to get sequences for a Day that cannot be fully predicted. Results will not be accurate!*')
+				.setDescription('*You are attempting to get sequences for a cycle that cannot be fully predicted. Results will not be accurate!*')
 
 			await interaction.editReply({ content: '', embeds: [ unpredictedWarning, dayEmbed ], ephemeral: true })
 		}
