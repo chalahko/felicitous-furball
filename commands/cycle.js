@@ -10,13 +10,13 @@ module.exports = {
 				.setDescription('Cycle day')
 				.setRequired(true)
 				.addChoices(
-					{ name: 'Tuesday', value: 1 },
-					{ name: 'Wednesday', value: 2 },
-					{ name: 'Thursday', value: 3 },
-					{ name: 'Friday', value: 4 },
-					{ name: 'Saturday', value: 5 },
-					{ name: 'Sunday', value: 6 },
-					{ name: 'Monday', value: 7 },
+					{ name: '1 - Tuesday', value: 1 },
+					{ name: '2 - Wednesday', value: 2 },
+					{ name: '3 - Thursday', value: 3 },
+					{ name: '4 - Friday', value: 4 },
+					{ name: '5 - Saturday', value: 5 },
+					{ name: '6 - Sunday', value: 6 },
+					{ name: '7 - Monday', value: 7 },
 				),
 		)
 		.setDMPermission(true),
@@ -80,7 +80,7 @@ module.exports = {
 			const dayTwoWarning = new EmbedBuilder()
 				.setAuthor({ name: 'Notice', iconURL: 'https://i.imgur.com/1DbYMXg.png' })
 				.setColor('e4d03d')
-				.setDescription('*Due to how Island Sanctuary supply changes, it is impossible to predict Day 2 **Nonexistent** crafts 100% accurately on Day 1. Adjust your plans accordingly.*')
+				.setDescription('*Due to how Island Sanctuary supply changes, it is impossible to predict all Day 2 **Nonexistent** crafts 100% accurately on Day 1. Adjust your plans accordingly.*')
 
 			await interaction.editReply({ content: '', embeds: [ dayTwoWarning, dayEmbed ], ephemeral: true })
 		}

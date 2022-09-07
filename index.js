@@ -53,6 +53,7 @@ catch (e) {
 		cyclesCalled: 0,
 		faqsCalled: 0,
 		interactions: 0,
+		animalsCalled: 0,
 	}
 
 	client.stats = newStats

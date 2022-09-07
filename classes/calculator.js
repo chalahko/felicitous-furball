@@ -193,6 +193,10 @@ module.exports = {
 	Calculator,
 }
 
+/*
+/ Workshop Items
+/ name, baseValue, combo, time
+*/
 const items = [
 	[ 'Potion', 33, [ 'Firesand', 'Growth Formula', 'Essential Draught', 'Vegetable Juice' ], 4 ],
 	[ 'Firesand', 33, [ 'Potion', 'Growth Formula', 'Essential Draught', 'Vegetable Juice', 'Brick Counter', 'Garnet Rapier', 'Quartz Ring', 'Porcelain Vase' ], 4 ],

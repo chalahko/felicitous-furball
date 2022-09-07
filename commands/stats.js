@@ -15,6 +15,7 @@ module.exports = {
 			.setDescription(`> Number of Servers: **${commas(guilds)}**
 			> Total Bot Interactions: **${commas(interaction.client.stats.interactions)}**
 			> Cycles Called: **${commas(interaction.client.stats.cyclesCalled)}**
+			> Animals Called: **${commas(interaction.client.stats.animalsCalled)}**
 			> FAQs Shown: **${commas(interaction.client.stats.faqsCalled)}**`)
 
 		interaction.reply({ embeds: [ statsEmbed ] })
