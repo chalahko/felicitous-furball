@@ -68,7 +68,7 @@ module.exports = {
 		let animalStr = ''
 		animalTimes.forEach(el => {
 			const discordTime = (el / 1000).toFixed(0)
-			animalStr = animalStr + `<t:${discordTime}:D> at <t:${discordTime}:T>  \u200B <t:${discordTime}:R>\n`
+			animalStr = animalStr + `<t:${discordTime}:D> at <t:${discordTime}:t>  \u200B <t:${discordTime}:R>\n`
 		})
 
 		const animalEmbed = new EmbedBuilder()
@@ -140,7 +140,7 @@ function generateClosestEorzeanWeatherChange(date) {
 		timeToChange = (16 - bells)
 	}
 
-	if (timeToChange < 4) {
+	if (timeToChange < 2) {
 		return Date.now() - (bells * eorzeanHour)
 	}
 	else {
