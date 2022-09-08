@@ -34,7 +34,7 @@ const icons = {
 
 
 module.exports = {
-	global: true,
+	global: false,
 	data: new SlashCommandBuilder()
 		.setName('animal')
 		.setDescription('Show the next spawn window for a rare animal')
@@ -72,7 +72,7 @@ module.exports = {
 		})
 
 		const animalEmbed = new EmbedBuilder()
-			.setAuthor({ name: `${animalInfo.name} Weather Times`, iconURL: icons[animalInfo.type] })
+			.setAuthor({ name: `${animalInfo.name} Spawn Times`, iconURL: icons[animalInfo.type] })
 			.setDescription(`*Below are the next five times that ${animalInfo.name} will be able to spawn. Make sure you have your ${animalInfo.item}s at the ready!*`)
 			.setColor('228822')
 			.addFields([

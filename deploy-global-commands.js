@@ -21,3 +21,9 @@ const rest = new REST({ version: '10' }).setToken(token)
 rest.put(Routes.applicationCommands(clientId), { body: commands })
 	.then(() => console.log('Successfully registered global application commands.'))
 	.catch(console.error)
+
+/*
+rest.delete(Routes.applicationCommand(clientId, '1016938480003186688'))
+	.then(() => console.log('Successfully deleted application command'))
+	.catch(console.error);
+*/
