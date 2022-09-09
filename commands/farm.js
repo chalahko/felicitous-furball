@@ -27,7 +27,7 @@ module.exports = {
 		const cropInfo = farmData[crop]
 
 		const farmEmbed = new EmbedBuilder()
-			.setTitle(`${cropInfo.name} - Island Farm`)
+			.setTitle(`${cropInfo.name}  -  Island Farm`)
 			.setColor('228822')
 			.addFields(
 				{ name: 'Seed Acquisition Method', value: (cropInfo.gathered) ? 'Gathered' : 'Bought' },

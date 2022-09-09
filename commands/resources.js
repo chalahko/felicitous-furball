@@ -24,7 +24,7 @@ module.exports = {
 		const resourceInfo = resourceData[resource]
 
 		const resourceEmbed = new EmbedBuilder()
-			.setTitle(`${resourceInfo.name} - Island Resources`)
+			.setTitle(`${resourceInfo.name}  -  Island Resources`)
 			.setColor('228822')
 			.setThumbnail(resourceInfo.icon)
 
