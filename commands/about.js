@@ -1,7 +1,7 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 
 module.exports = {
-	global: false,
+	global: true,
 	data: new SlashCommandBuilder()
 		.setName('about')
 		.setDescription('Information about the Furball'),
