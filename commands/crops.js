@@ -3,7 +3,7 @@ const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
 module.exports = {
 	global: true,
 	data: new SlashCommandBuilder()
-		.setName('farm')
+		.setName('crops')
 		.setDescription('Show crop information')
 		.addStringOption(option =>
 			option.setName('type')
