@@ -21,7 +21,7 @@ module.exports = {
 
 				**LeitonGrey** - for their [Island Sanctuary Guide](https://docs.google.com/spreadsheets/d/1R4UKA2zZ1MZ7sRUEBAi2Eh0NCVPbb1iQh8BjoQ_vVX4/htmlview?pru=AAABg0OWiUY*-cNeUjuLyEewM4DV_O2Z0w# 'Island Sanctuary Guide') used to verify my sequence predictions
 
-				**Garlond Tools** - for the item icons
+				**Garland Tools** - for the item icons
 
 				A special thanks to everyone in the Poking Paradise server and the FFXIV Subreddit who contributed research and animal locations/times.` },
 			)
