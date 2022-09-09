@@ -54,10 +54,12 @@ class Calculator {
 	getLastPeak() {
 		let lastPeak = 0
 		for (const key in this._items) {
-			const peak = this._items[key].peakCycle
+			const peakItem = this._items[key]
 
-			if (peak > lastPeak) lastPeak = peak
+			if (peakItem.peak > lastPeak && peakItem.peakType == 2) lastPeak = peakItem.peak
 		}
+
+		console.table(this._items)
 
 		return lastPeak
 	}
