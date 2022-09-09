@@ -76,7 +76,7 @@ function generateWeatherWindows(date, windowData) {
 	const startTime = generateClosestEorzeanWeatherChange(date)
 
 	let changesPassed = 0
-	while (weatherTimes.length < 5) {
+	while (weatherTimes.length < 3) {
 		const time = startTime + (changesPassed * eorzeanHour * 8)
 		const weatherNum = getWeatherNumber(time)
 
@@ -217,7 +217,7 @@ const animalData = {
 
 	goobbue: { name: 'Goobbue', special: true, type: 'Clouds', start: 9, end: 12, time: '9AM - 12PM', common: 'Fang', rare: 'Claw', size: 'Large', url: 'https://i.imgur.com/KuxD54l.jpg' },
 
-	alligator: { name: 'Alligator', special: true, type: 'Showers', start: 6, end: 9, time: '6AM - 9PM', common: 'Claw', rare: 'Fang', size: 'Large', url: 'https://i.imgur.com/0Z2dCRK.jpg' },
+	alligator: { name: 'Alligator', special: true, type: 'Showers', start: 6, end: 9, time: '6AM - 9AM', common: 'Claw', rare: 'Fang', size: 'Large', url: 'https://i.imgur.com/0Z2dCRK.jpg' },
 
 	back: { name: 'Blue Back', special: false, type: 'Any', start: 0, end: 23, time: 'Any', common: 'Egg', rare: 'Feather', size: 'Large', url: 'https://i.imgur.com/ha4IYqv.jpg' },
 	backGold: { name: 'Gold Back', special: true, type: 'Rain', start: 0, end: 23, time: 'Any', common: 'Feather', rare: 'Egg', size: 'Large', url: 'https://i.imgur.com/P2mDYXl.jpg' },
