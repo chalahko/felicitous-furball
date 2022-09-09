@@ -16,7 +16,7 @@ module.exports = {
 	async execute(interaction) {
 		const animal = interaction.options.getString('type')
 		if (!animalData[animal]) {
-			await interaction.reply(`${animal} is not an animal!`)
+			await interaction.reply({ content: `${animal} is not an animal!`, ephemeral: true })
 			return
 		}
 		const animalInfo = animalData[animal]

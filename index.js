@@ -54,6 +54,8 @@ catch (e) {
 		faqsCalled: 0,
 		interactions: 0,
 		animalsCalled: 0,
+		resourcesCalled: 0,
+		farmsCalled: 0,
 	}
 
 	client.stats = newStats
@@ -74,6 +76,17 @@ for (const file of commandFiles) {
 	const filePath = path.join(commandsPath, file)
 	const command = require(filePath)
 	client.commands.set(command.data.name, command)
+}
+
+// Dynamically load all autocompletes
+client.autocompletes = new Collection()
+const autocompletesPath = path.join(__dirname, 'autocompletes')
+const autcompleteFiles = fs.readdirSync(autocompletesPath).filter(file => file.endsWith('.js'))
+
+for (const file of autcompleteFiles) {
+	const filePath = path.join(autocompletesPath, file)
+	const autocomplete = require(filePath)
+	client.autocompletes.set(autocomplete.name, autocomplete)
 }
 
 // Dynamically load all modal handlers
