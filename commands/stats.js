@@ -14,8 +14,10 @@ module.exports = {
 			.setColor('ee3300')
 			.setDescription(`> Number of Servers: **${commas(guilds)}**
 			> Total Bot Interactions: **${commas(interaction.client.stats.interactions)}**
-			> Cycles Called: **${commas(interaction.client.stats.cyclesCalled)}**
-			> Animals Called: **${commas(interaction.client.stats.animalsCalled)}**
+			> Workshop Cycles Calculated: **${commas(interaction.client.stats.cyclesCalled)}**
+			> Bestiary Lookups: **${commas(interaction.client.stats.animalsCalled)}**
+			> Resource Lookups: **${commas(interaction.client.stats.resourcesCalled)}**
+			> Crop Info Info'd: **${commas(interaction.client.stats.farmsCalled)}**
 			> FAQs Shown: **${commas(interaction.client.stats.faqsCalled)}**`)
 
 		interaction.reply({ embeds: [ statsEmbed ] })
